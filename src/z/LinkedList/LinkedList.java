@@ -69,6 +69,74 @@ public class LinkedList <E> {
     }
 
     public void set(int index, E e) {
+        if (index < 0 || index > size) return;
 
+        Node cur = dummyHead;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        cur.e = e;
+    }
+
+    public boolean contains(E e) {
+        Node cur = dummyHead;
+        while (cur != null) {
+            if (cur.e.equals(e)) return true;
+            cur = cur.next;
+        }
+        return false;
+    }
+
+    public E remove(int index) {
+        if (index < 0 || index >= size) return null;
+        Node pre = dummyHead;
+        for (int i = 0; i < index; i++) {
+            pre = pre.next;
+        }
+
+        Node delNode = pre.next;
+        pre.next = delNode.next;
+        size--;
+        delNode.next = null;
+        return delNode.e;
+    }
+
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
+    public void removeElement(E e) {
+        Node prev = dummyHead;
+
+        while (prev != null) {
+            if (prev.next.e.equals(e))
+                break;
+            prev = prev.next;
+        }
+
+        if (prev.next != null) {
+            Node delNode = prev.next;
+            prev.next = delNode.next;
+            delNode.next = null;
+            size--;
+        }
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder res = new StringBuilder();
+
+        Node cur = dummyHead.next;
+        while(cur != null){
+            res.append(cur + "->");
+            cur = cur.next;
+        }
+        res.append("NULL");
+
+        return res.toString();
     }
 }
