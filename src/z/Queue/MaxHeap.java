@@ -13,12 +13,25 @@ public class MaxHeap<E extends Comparable<E>> {
 
     private Array<E> data;
 
-    MaxHeap(int capacity) {
+    public MaxHeap(int capacity) {
         data = new Array<>(capacity);
     }
 
-    MaxHeap() {
-        data = new Array<>();
+    public MaxHeap() {
+        this(10);
+    }
+
+    /**
+     * heapify: transform array to heap
+     * */
+    public MaxHeap(E [] arr) {
+        data = new Array<>(arr);
+        /**
+         * from first not leaf node to top , sift Down
+         * */
+        for (int i = parent(arr.length - 1); i >= 0 ; i--) {
+            siftDown(i);
+        }
     }
 
     public void add (E e) {
@@ -63,6 +76,14 @@ public class MaxHeap<E extends Comparable<E>> {
             data.swap(index, j);
             index = j;
         }
+    }
+
+    // 取出最大元素，并且替换为元素e
+    public E replace(E e) {
+        E ret = findMax();
+        data.set(0, e);
+        siftDown(0);
+        return ret;
     }
 
     public int getSize() {
