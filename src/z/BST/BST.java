@@ -313,7 +313,7 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
-    /******** 打印 **********/
+    /******** 输出格式 **********/
     @Override
     public String toString(){
         StringBuilder res = new StringBuilder();
